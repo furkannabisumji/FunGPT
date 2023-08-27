@@ -14,6 +14,9 @@ class Message {
 }
 
 bot.on('message', async (msg) => {
+    if(msg.text=="/start"){
+        bot.sendMessage(msg.chat.id, "Hello there! I'm a bot. What's up?");                
+    }else{  
     const messageArray = JSON.parse(fs.readFileSync('messages.json', 'utf8'))
     messageArray.push(new Message(msg.text));
     const updatedJson = JSON.stringify(messageArray);
@@ -26,4 +29,5 @@ bot.on('message', async (msg) => {
         messages: messageArray
     });
     bot.sendMessage(msg.chat.id, completion.choices[0].message.content);
+}
 });
